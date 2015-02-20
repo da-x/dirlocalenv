@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+def prepend(envvar, component):
+    val = os.getenv(envvar, None)
+    if val:
+        val = component + ":" + val
+    else:
+        val = component
+    os.putenv(envvar, val)
+    os.environ[envvar] = val
+
+execenv = dict(
+    prepend=prepend,
+)
+
+def check_recursion():
+    current_dirlocalenv = os.getenv("DIRLOCALENV", None)
+    if current_dirlocalenv == sys.argv[0]:
+        print >>sys.stderr, "dirlocalenv: could not find sutiable exec for %s" % (sys.argv[0], )
+        sys.exit(1)
+    os.putenv("DIRLOCALENV", sys.argv[0])
+
+def get_dirlocalenv_files():
+    p = os.getcwd()
+    localenvs = []
+    while len(p) > 1:
+        fp = os.path.join(p, ".dirlocalenv")
+        if os.path.exists(fp):
+            localenvs.append(fp)
+        p = os.path.realpath(os.path.join(p, ".."))
+
+    localenvs.reverse()
+    return localenvs
+
+def evaluate_files():
+    localenvs = get_dirlocalenv_files()
+    for localenv in localenvs:
+        exec(file(localenv).read(), execenv)
+
+def execute_program():
+    command = os.path.basename(sys.argv[0])
+    os.execvp(command, sys.argv[0:])
+
+def main():
+    check_recursion()
+    evaluate_files()
+    execute_program()
+
+if __name__ == "__main__":
+    main()
