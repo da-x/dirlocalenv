@@ -8,7 +8,7 @@ variables.
 Use case
 --------
 
-Support you use have `project-a` that is designed to build with
+Suppose you use have `project-a` that is designed to build with
 `some-compiler-1.4` by default, and in addition you have `project-b`
 that is designed to build with `some-compiler-1.5` by default. Now,
 your `some-compiler` in `$PATH` can be only one of the two. You
@@ -42,7 +42,7 @@ but also observe that:
     $ some-compiler --version
 	Version 1.5
 
-Voila!
+Voilà!
 
 `dirlocalenv` works by looking up files named `.dirlocalenv` when
 going up from the current directory, and Python-evaluate them in
