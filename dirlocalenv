@@ -42,7 +42,12 @@ def evaluate_files():
 
 def execute_program():
     command = os.path.basename(sys.argv[0])
-    os.execvp(command, sys.argv[0:])
+    prefix = []
+    params = sys.argv[0:]
+    if command == "dirlocalenv":
+        command = sys.argv[1]
+        params = sys.argv[1:]
+    os.execvp(command, params)
 
 def main():
     check_recursion()
