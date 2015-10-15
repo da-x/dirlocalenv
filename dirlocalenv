@@ -3,6 +3,11 @@
 import os
 import sys
 
+
+def override(envvar, value):
+    os.putenv(envvar, value)
+    os.environ[envvar] = value
+
 def prepend(envvar, component):
     val = os.getenv(envvar, None)
     if val:
@@ -14,6 +19,7 @@ def prepend(envvar, component):
 
 execenv = dict(
     prepend=prepend,
+    override=override,
 )
 
 def check_recursion():
