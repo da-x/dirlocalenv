@@ -71,13 +71,13 @@ the place where you cloned `dirlocalenv`. For example:
 
 Now, create two files:
 
-**~/projects/project-a/.dirlocalenv**`:
-
-    prepend("PATH", "/opt/some-compiler-1.5/bin")
-
 **~/projects/project-a/.dirlocalenv**:
 
     prepend("PATH", "/opt/some-compiler-1.4/bin")
+
+**~/projects/project-b/.dirlocalenv**`:
+
+    prepend("PATH", "/opt/some-compiler-1.5/bin")
 
 Observe that `which some-compiler` will show `~/bin/some-compiler`, 
 but also observe that:
