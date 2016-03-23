@@ -18,6 +18,8 @@ def prepend(envvar, component):
     os.environ[envvar] = val
 
 execenv = dict(
+    join=os.path.join,
+    HOME=os.getenv("HOME"),
     prepend=prepend,
     override=override,
 )
