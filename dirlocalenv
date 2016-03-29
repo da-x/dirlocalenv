@@ -27,7 +27,7 @@ execenv = dict(
 def check_recursion():
     current_dirlocalenv = os.getenv("DIRLOCALENV", None)
     if current_dirlocalenv == sys.argv[0]:
-        print >>sys.stderr, "dirlocalenv: could not find sutiable exec for %s" % (sys.argv[0], )
+        print >>sys.stderr, "dirlocalenv: could not find suitable exec for %s" % (sys.argv[0], )
         sys.exit(1)
     os.putenv("DIRLOCALENV", sys.argv[0])
 
