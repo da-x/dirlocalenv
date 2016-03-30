@@ -19,6 +19,7 @@ def prepend(envvar, component):
 
 execenv = dict(
     join=os.path.join,
+    THISDIR=None, # filled later
     HOME=os.getenv("HOME"),
     prepend=prepend,
     override=override,
@@ -46,7 +47,9 @@ def get_dirlocalenv_files():
 def evaluate_files():
     localenvs = get_dirlocalenv_files()
     for localenv in localenvs:
-        exec(file(localenv).read(), execenv)
+        execenv_d = dict(execenv)
+        execenv_d["THISDIR"] = os.path.dirname(localenv)
+        exec(file(localenv).read(), execenv_d)
 
 def execute_program():
     command = os.path.basename(sys.argv[0])
