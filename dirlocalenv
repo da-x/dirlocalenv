@@ -1,8 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import sys
-
 
 def override(envvar, value):
     os.putenv(envvar, value)
@@ -49,7 +48,7 @@ def evaluate_files():
     for localenv in localenvs:
         execenv_d = dict(execenv)
         execenv_d["THISDIR"] = os.path.dirname(localenv)
-        exec(file(localenv).read(), execenv_d)
+        exec(open(localenv).read(), execenv_d)
 
 def execute_program():
     command = os.path.basename(sys.argv[0])
